@@ -10,14 +10,25 @@
  * 2024-03-13        Yeong-Huns       최초 생성
  */
 fun main() {
-    // var : 변경할 수 있는 변수
-    // val : 변경할 수 없음 (자바의 final)
-    var age : Int = 40; // var or val 변수명 : 변수형 = 초기값
+    /*
+    # 1.var
+    * 변경 가능한 저장소
+    * 클래스에서 변경 가능 프로퍼티(Field + Getter + Setter) 선언
+    */
+    var age : Int = 40; // var 변수명 : 타입 = 초기값
     var shortAge = 40 // 타입 추론이 가능한 형태면 변수형을 생략 가능하다.
     age = 30 // var 이기 때문에 값을 변경가능하다.
     println("age : $age") // = 30
+    // ===========================================================
+    /*
+    # 2.val
+    * 읽기 전용 저장소
+    * 클래스에서 읽기 전용 프로퍼티(Field + Getter) 선언
+     */
     val finalAge : Int = 40;
-    // finalAge = 30; // val로 선언한 변수는 값을 변경하려 하면 컴파일 에러가 발생한다.
+    // finalAge = 30; // Val cannot be reassigned(val를 선언하면 값 변경 불가)
     println("finalAge : $finalAge")
+    val age2 : Int
+    age2 = 40; // 값을 나중에 지정해 줘도 되지만, 그러기 위해서는 타입을 명시해줘야한다.(타입지정 안할시 컴파일 에러)
 
 }
