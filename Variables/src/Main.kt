@@ -73,11 +73,6 @@ fun main() {
     println("f = " + f::class + "\n") // f = float
     // ===========================================================
     println("PI : $PI\n")
-    /*
-
-
-    */
-
 }
 const val PI : Double = 3.14159265359
 
