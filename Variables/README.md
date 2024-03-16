@@ -1,11 +1,14 @@
 # Variables(변수)
 
+<br>
+
 ## 1. var
 
 * 변경 가능한 저장소
 * 클래스에서 변경 가능 프로퍼티(Field + Getter + Setter) 선언
-
 ---
+
+<br>
 
 ## 2. val
 * 읽기 전용 저장소
@@ -16,6 +19,8 @@
 > #### 3. 변수의 스코프는 좁게 가져가는 것을 권장(추적이 쉬워서 가독성이 좋음)
 
 ---
+
+<br>
 
 ## 3. 타입
 |         타입         |     담는 정보      |  사이즈   | 범위                                                         |
@@ -34,6 +39,8 @@
 |   <U>**Set**</U>   |    key의 모음     |   가변   |                                                            |
 |   <U>**Map**</U>   | key, value로 구성 |   가변   |
 
+<br>
+
 ### Int와 Long 연산
 ```kotlin
 val a: Int = 1
@@ -43,6 +50,8 @@ println("1 + 2L = $c")
 println(c::class) // long
 ```
 * 더 큰 사이즈인 Long으로 변환
+
+<br>
 
 ### 소수점 계산
 ```kotlin
@@ -55,12 +64,16 @@ println("1 / 2.0 = $Double_c") // 0.5
 * 정수끼리 나누면 소숫점 이하 버림 처리, 소수와 함께 계산해야 소수점 계산
 * 정수에 toDouble 함수를 사용해서 형변환 하는 방법도 있음
 
+<br>
+
 ### 언더바(_)로 천단위 표시
 ```kotlin
 val value : Long = 1_000_000L
 println("Long_Value = $Long_value")
 ```
 * 언더바(_)로 천단위 표시를 함으로써 가독성을 올릴 수 있음
+
+<br>
 
 ### 문자 하나는 Char
 ```kotlin
@@ -70,6 +83,8 @@ println("digitToInt() = 문자를 숫자로 변환 : ${chr.digitToInt()}") // 1
 * 문자 하나는 작은 따옴표('')로 표기
 * character 문자를 그대로 숫자로 변환할 때 digitToInt() 사용
 
+<br>
+
 ### 문자열은 String
 ```kotlin
 val str : String = "ABCD"
@@ -77,6 +92,8 @@ println("문자열 : $str")
 ```
 * 문자열은 쌍따옴표("")로 표기
 * 문자열을 초기화하면 변경 불가, 문자열을 바꾸면 변경하지 않고 새 String 객체를 반환
+
+<br>
 
 ### 여러줄 문자열
 ```kotlin
@@ -89,6 +106,8 @@ val text : String = """
 println("여러줄 문자열: $text")
 ```
 * 여러줄 문자열은 삼중따옴표(""")로 구분
+
+<br>
 
 ### 문자열과 변수 연결
 ```kotlin
@@ -103,6 +122,9 @@ println("My age is $age") // My age is 30
 * 숫자에도 동일하게 적용
 
 ---
+
+<br>
+
 ## 4. 타입 추론(type inferred)
 * 코틀린은 강력한 타입 추론을 제공
 * 변수의 타입을 작성하지 않으면 컴파일러가 타입을 추론해서 작업을 수행한다. (컴파일 시점)
@@ -131,8 +153,14 @@ println("f = " + f::class) // f = float
 > #### 📌 유형이 명확히 보이지 않는 것들은 타입 추론이 되더라도 직접 타입을 명시하는 것을 권장
 
 ---
+
+<br>
+
 ## 5. 상수
 * 컴파일 타임 상수 : 컴파일 타임에 정해지고 런타임 중에는 변경되지 않는 값
+
+<br>
+
 ### 기본 형식
 ```kotlin
 const val 상수명 : 타입 = 상수값
@@ -140,6 +168,9 @@ const val 상수명 : 타입 = 상수값
 ```kotlin
 const val PI : Double = 3.14159265359
 ```
+
+<br>
+
 ### const를 활용한 상수 선언
 ```kotlin
 const val PI: Double = 3.14159265359
@@ -170,6 +201,9 @@ public final class Mainkt2 {
     }
 }
 ```
+
+<br>
+
 ### val과 const val 비교
 |               | val           | const val                                               |
 |:-------------:|:--------------|:--------------------------------------------------------|
