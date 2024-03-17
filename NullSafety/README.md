@@ -53,7 +53,7 @@ if (bool == true) {
 
 <br>
 
-## ?.
+## 2. ?.
 
 * safe call operator
 * 명시적으로 null 을 확인할 필요없이 null 허용 값을 처리하는 간결한 방법
