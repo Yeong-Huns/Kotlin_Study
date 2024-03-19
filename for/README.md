@@ -148,6 +148,8 @@ fun loopBreak() {
 ```
 * 가장 가까운 반복문을 종료
 
+<br>
+
 ### continue
 ```kotlin
 fun main() {
