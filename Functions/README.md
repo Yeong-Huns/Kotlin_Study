@@ -228,13 +228,13 @@ fun main(){
 ### companion object 에 확장함수 사용
 ```kotlin
 fun main(){
-    Person2.printInfo()
+    Person2.printInfo() // Person companion
 }
 class Person2{
     companion object{}
 }
 fun Person2.Companion.printInfo(){
-    println("Person companion") // Person companion
+    println("Person companion") 
 }
 ```
 * companion object 에 있는 함수는 인스턴스 없이 클래스로 바로 호출
