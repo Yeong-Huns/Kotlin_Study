@@ -1,4 +1,4 @@
-# Functions (함수) - Function, Extension, inline
+# 1. Functions (함수) - Function, Extension, inline
 
 <br>
 
@@ -305,3 +305,73 @@ public final class MainKt {
 }
 ```
 * 자바로 디컴파일 해보면 인라인 함수 위치에 직접 코드가 들어간것을 확인 할 수 있음
+
+---
+# 2. Function (함수) - infix, operator, tailrec 
+
+<br>
+
+## 2.1 중위함수
+* 연산자와 유사한 특정 구문으로 함수를 호출할 수 있는 기능
+* infix 키워드를 사용해서 함수 선언
+
+<br>
+
+### 기본 형식
+```kotlin
+infix fun 클래스.중위함수명(파라미터: 타입): 리턴타입 {
+    //본문
+    return 리턴값
+}
+```
+```kotlin
+infix fun Int.plus(value: Int): Int = this + value
+```
+
+<br>
+
+### 중위함수
+```kotlin
+fun main(){
+    val ip: String = "192.0.0.1"
+    val port: String = "8080"
+    val address: String ip and port
+    println("address = $address")   // address = 192.0.0.1:8080
+}
+infix fun String.and(port: String) = "$this:$port"
+```
+* 메소드 호출하는 표기법만 다르다고 생각하면 됨
+
+<br>
+
+### Pair 를 반환하는 중위함수(to)
+```kotlin
+val pair: Pair<String, Int> = "kim" to 30
+println(pair)   // (kim, 30)
+```
+* Pair 는 2개의 값 모음을 나타내는 간단한 클래스
+
+<br>
+
+### 중위표현은 클래스에서도 가능
+
+```kotlin
+fun main() {
+    val kim: Instagram = Instagram("kim")
+    val park: Instagram = Instagram("park")
+    val lee: Instagram = Instagram("lee")
+
+    kim follow park
+    kim follow lee
+
+    for (follow in kim.followList){
+        println(follow.id)  //park, lee
+    }
+}
+class Instagram(val id: String) {
+    val followList: MutableList<Instagram> = mutableListOf<Instagram>()
+    infix fun follow(other: Instagram) {
+        followList.add(other)
+    }
+}
+```
