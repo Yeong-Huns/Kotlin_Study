@@ -375,3 +375,144 @@ class Instagram(val id: String) {
     }
 }
 ```
+
+<br>
+
+## 2. 연산자 오버로딩
+
+* 사전에 정의된 기호 표현을 재정의하여 사용가능
+* 연산자를 재정의하려면 특정 이름을 가진 멤버함수 또는 확장함수를 생성
+* 오해의 소지가 없도록 기호가 가지는 의미를 잘 살려서 사용
+
+<br>
+
+### 접두사 operator
+| Expression | call function  |
+|:-----------|:---------------|
+| +a         | a.unaryPlus()  |
+| -a         | a.unaryMinus() |
+| !a         | a.not()        |
+
+```kotlin
+fun main(){
+    val book: Book = Book(0)
+    println(+book)  // Book(price=100)
+}
+data class Book(val price: Int)
+
+operator fun Book.unaryPlus(): Book {
+    this.price += 100
+    return this
+}
+```
+
+<br>
+
+### 증가, 감소 operator
+
+| Expression | call function |
+|:-----------|:--------------|
+| a++        | a.inc()       |
+| ++a        | a.inc()       |
+| a--        | a.dec()       |
+| --a        | a.dec()       |
+
+```kotlin
+val a: Int = 10
+println("a++ = ${a++}") // a++ = 10
+println("a = $a")   // a = 11
+println("++a = ${++a}") // a = 12
+println("a = $a")   // a = 12
+```
+* a++, ++a 똑같이 a에 1을 증가시키지만 실행 직후 a++ 은 원래 a값, ++a는 증가한 a 값이 반환됨.
+
+<br>
+
+### 산술 operator
+
+| Expression | call function   |
+|:-----------|:----------------|
+| a + b      | a.plus(b)       |
+| a - b      | a.minus(b)      |
+| a * b      | a.times(b)      |
+| a / b      | a.div(b)        |
+| a % b      | a.rem(b)        |
+| a..b       | a.rangeTo(b)    |
+| a..<b      | a.rangeUntil(b) |
+
+```kotlin
+fun main(){
+    val book2: Book = Book(0)
+    println(book2)   // Book(price=0)
+    println(book2 + 1_000)  // Book(price=1000)
+    
+    println(2 * "hello ")   // hello hello
+}
+data class Book(var price: Int){
+    operator fun plus(incPrice: Int): Book{
+        this.price += incPrice
+        return this
+    }
+}
+operator fun Int.times(str: String) = str.repeat(this)
+```
+
+<br>
+
+### in operator
+| Expression | call function  |
+|:-----------|:---------------|
+| a in b     | b.contains(a)  |
+| a !in b    | !b.contains(a) |
+
+<br>
+
+### index access operator
+| Expression         | call function         |
+|:-------------------|:----------------------|
+| a[i]               | a.get(i))             |
+| [i, j]             | a.get(i, j)           |
+| a[i_1,...,i_n]     | a.get(i_1,...,i_n)    |
+| a[i] = b           | a.set(i, b)           |
+| a[i, j] = b        | a.set(i, j, b)        |
+| a[i_1,...,i_n] = b | a.set(i_1,...,i_n, b) |
+
+<br>
+
+### invoke operator
+| Expression     | call function         |
+|:---------------|:----------------------|
+| a()            | a.invoke()            |
+| a(i)           | a.invoke(i)           |
+| a(i,j)         | a.invoke(i,j)         |
+| a(i_1,...,i_n) | a.invoke(i_1,...,i_n) |
+
+<br>
+
+### 대입 operator
+| Expression | call function    |
+|:-----------|:-----------------|
+| a += b     | a.plusAssign(b)  |
+| a *= b     | a.timesAssign(b) |
+| a /= b     | a.divAssign(b)   |
+| a %= b     | a.remAssign(b)   |
+
+<br>
+
+### 항등, 부등 operator
+| Expression | call function               |
+|:-----------|:----------------------------|
+| a == b     | a?.equals(b)?:(b ===null)   |
+| a!=b       | !(a?.equals(b)?:(b===null)) |
+
+<br>
+
+### 비교 operator
+| Expression | call function     |
+|:-----------|:------------------|
+| a > b      | a.compareTo(b)>0  |
+| a < b      | a.compareTo(b)<0  |
+| a >= b     | a.compareTo(b)>=0 |
+| a<=b       | a.compareTo(b)<=0 |
+
+

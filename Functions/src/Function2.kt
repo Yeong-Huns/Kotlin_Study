@@ -37,6 +37,27 @@ fun main(){
         println(follow.Id)
     }
     println()
+    //* ===========================================================
+    val book1: Book = Book(0)
+    println("+book1 = ${+book1}")   // Book(price=100)
+    println("-book1 = ${-book1}")   // Book(price=0)
+    //* ===========================================================
+    var a: Int = 10
+    println("a++ = ${a++}") // 10
+    println("a = $a")   // 11
+    println("++a = ${++a}") // 12
+    println("a = $a") // 12
+    /*
+    a++ -> a에 1을 증가시키지만, 실행 직후 원래 a 값을 반환,
+    ++a -> a에 1을 증가시키고, 증가시킨 값을 반환
+     */
+    //* ===========================================================
+    val book2: Book = Book(0)
+    println(book2)  //Book(price=0)
+    println(book2 + 1_000)  //Book(price=1000)
+    println(book2 - 500)    //Book(price=500)
+    //* ===========================================================
+    println("2 * hello -> ${2 * "hello "}") //hello hello
 }
 infix fun Int.plus2(value: Int): Int = this + value
 
@@ -48,3 +69,24 @@ class Instagram(val Id: String){
         followList.add(other)
     }
 }
+
+data class Book(var price: Int) {
+    operator fun plus(increasePrice: Int): Book{
+        this.price += increasePrice
+        return this
+    }
+}
+operator fun Book.unaryPlus(): Book {
+    this.price += 100
+    return this
+}
+operator fun Book.unaryMinus(): Book{
+    this.price -= 100
+    return this
+}
+operator fun Book.minus(decreasePrice: Int): Book{
+    this.price -= decreasePrice
+    return this
+}
+
+operator fun Int.times(str: String) = str.repeat(this)
