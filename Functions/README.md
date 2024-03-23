@@ -515,4 +515,67 @@ operator fun Int.times(str: String) = str.repeat(this)
 | a >= b     | a.compareTo(b)>=0 |
 | a<=b       | a.compareTo(b)<=0 |
 
+<br>
 
+## 3. 재귀함수
+* 문제를 해결하기 위해 자신을 호출하는 함수
+* tailrec 을 사용해서 재귀함수 최적화
+
+<br>
+
+### 기본 형식
+```kotlin
+tailrec fun 재귀함수명(파라미터: 타입): 리턴타입 {
+    if(종료조건){
+        return 리턴값
+    } else{
+        // 본문
+        return 재귀함수명(다음단계 아규먼트)
+    }
+}
+```
+```kotlin
+tailrec fun factorial(n: Long, acc: Long): Long =
+    if(n <= 0) {
+        acc
+    } else {
+        factorial(n - 1, n * acc)
+    }
+```
+
+<br>
+
+### 자기 자신을 다시 호출하는 함수
+```kotlin
+fun main() {
+    val value: Long =3L
+    println("$value! = ${factorial(value, 1L)}") // 3! = 6
+}
+
+tailrec fun factorial(n: Long, acc: Long): Long = 
+    if(n <= 0) {
+        acc
+    }else{
+        factorial(n - 1, n * acc)
+    }
+```
+* 재귀를 사용시 tailrec 을 작성해주면 최적화되어 StackOverflowError 없이 사용 가능
+
+<br>
+
+### StackOverflowError 방지
+```kotlin
+fun main() {
+    val value2: Long = 1_000_000L
+    println("${untilSum(value2)}")
+}
+
+tailrec fun untilSum(n: Long, acc: Long = 0L): Long = 
+    if(n <= 0) {
+        acc
+    } else {
+        untilSum(n - 1, n + acc)
+    }
+```
+* tailrec 을 지우면 StackOverflowError 발생
+* tailrec 을 붙이면 JAVA 디컴파일시 재귀 함수를 루프로 처리

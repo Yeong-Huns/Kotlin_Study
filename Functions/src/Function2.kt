@@ -58,6 +58,23 @@ fun main(){
     println(book2 - 500)    //Book(price=500)
     //* ===========================================================
     println("2 * hello -> ${2 * "hello "}") //hello hello
+    tailrec fun factorial(n: Long, acc: Long): Long =
+        if(n <= 0) {
+            acc
+        } else {
+            factorial(n - 1, n * acc)
+        }
+    val value: Long = 3L
+    println("$value! = ${factorial(value, 1L)}") // 3! = 6
+    //* ===========================================================
+    tailrec fun untilSum(n: Long, acc: Long = 0L): Long =
+        if(n <= 0){
+            acc
+        } else {
+            untilSum(n - 1, n + acc)
+        }
+    val value2: Long = 1_000_000L
+    println("${untilSum(value2)}")
 }
 infix fun Int.plus2(value: Int): Int = this + value
 
