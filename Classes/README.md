@@ -117,3 +117,62 @@ class Person(
 ```
 * 컴파일시 getter, setter 자동으로 생성되니 동일 이름으로 메소드 만들면 error 발생
 
+<br>
+
+### custom getter
+
+```kotlin
+fun main() {
+  val person: Person = Person("kim", 30)
+  println(person.info)    // name = kim, age = 30
+}
+class Person(
+  private val name: String,
+  private val age: Int
+) {
+  val info: String
+    get() = "name = $name, age = $age"
+}
+```
+* 프로퍼티에는 로직이 들어가지 말고 현재 상태만을 나타내도록 사용
+
+<br>
+
+### Backing fields 를 활용한 custom setter
+```kotlin
+fun main(){
+    val person: Person = Person()
+    person.info = "kim / 30"
+    println(person.info)    // value = kim / 30
+}
+class Person {
+    var info: String = ""
+      set(value) {
+          field = "value = $value"
+      }
+}
+```
+* 값을 넣을때 setter 를 호출
+* custom setter 안에서 info 이름으로 데이터를 넣으려고 하면 또 다시 setter 를 호출하면서 무한루프
+* 이때 Backing fields 에 값을 입력, 프로퍼티의 접근자에서만 사용 가능
+
+<br>
+
+### 클래스 초기화
+```kotlin
+fun main(){
+    val person: Person = Person("kim", 30)
+    println("name = ${person.name}")    // name = kim
+}
+class Person constructor(name: String, age: Int){
+    val name: String = name
+    val age: Int = age
+  init{
+      println("Person name = $name, age = ${this.age}")
+        // Person name = kim, age = 30
+  }
+}
+```
+* init 이 여러개인 경우 위에서부터 순서대로 실행
+* 주 생성자 파라미터를 init 에서 쓰려면 바로 변수명을 적고 프로퍼티의 값을 쓰려면 this.으로 사용
+
