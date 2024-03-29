@@ -429,3 +429,133 @@ class GreenCar : Car(), Seat{
     }
 }
 ```
+
+# 4. Classes(클래스) - data class
+
+## 1. data class 
+* 데이터 저장이 목적인 클래스를 쉽게 만들 수 있는 방법
+* Spring 에서 DTO 만들때 사용
+* 주 생성자에 있는 프로퍼티로 아래의 함수들을 만들어줌
+  * getter, setter(var 로 선언된 프로퍼티)
+  * equals()
+  * hashCode()
+  * toString()
+  * copy()
+  * componentN()
+* 주 생성자에는 최소한 하나의 프로퍼티가 있어야함 (var 나 val 로 선언)
+* 데이터 클래스는 abstract, open, sealed, inner 를 할 수 없음
+
+<br>
+
+### 기본 형식
+```kotlin
+data class 클래스명(val 프로퍼티: 타입)
+```
+```kotlin
+data class Person(val name: String, val age: Int)
+```
+
+<br>
+
+### 인스턴스 생성
+```kotlin
+fun main(){
+    val person: Person = Person("kim", 30)
+    println(person) // Person(name = kim, age = 30)
+}
+data class Person(
+    val name: String, 
+    val age: Int
+)
+```
+
+<br>
+
+### 인스턴스 비교(equals)
+```kotlin
+fun main(){
+    val person: Person = Person("kim", 30)
+    val person2: Person = Person("kim", 30)
+    val Person3: Person = Person("park", 40)
+  
+  println("person == person2 : ${person == person2}")   // true
+  println("person == person3 : ${person == person3}")   // fakse
+}
+data class Person(
+    val name: String,
+    val age: Int
+)
+```
+
+<br>
+
+### 인스턴스 복사
+```kotlin
+fun main(){
+    val person: Person = Person("kim", 30)
+    val person2: Person = person.copy("park")
+    val person3: Person = person.copy(age = 40)
+  
+  println(person2)
+  println(person3)
+}
+data class Person(
+    val name: String,
+    val age: Int
+)
+```
+
+<br>
+
+### 순서 기반 프로퍼티값 호출(componentN)
+
+```kotlin
+fun main(){
+    val person: Person = Person("kim", 30)
+    println(person.component1()) // kim
+    println(person.component2()) // 30
+}
+data class Person(
+    val name: String,
+    val age: Int
+)
+```
+* component1 : 첫번째 프로퍼티의 값 불러오기
+* component2 : 두번째 프로퍼티의 값 불러오기
+* 구조분해에서 사용
+
+## 2. VIsibility modifiers(가시성 제어자)
+| 가시성 제어자         | 범위                                                      |
+|-----------------|---------------------------------------------------------|
+| private         | 클래스 내부에서만 볼 수 있음                                        |
+| protected       | private 와 동일한 가시성을 가지고 추가로 해당 클래스를 상속받은 하위 클래스에서 볼 수 있음 |
+| internal        | 동밀한 모듈 내부에서 볼 수 있음                                      |
+| public(default) | 모든 곳에서 볼 수 있음                                           |
+* 동일한 모듈은 함께 컴파일된 kotlin 파일 들이라고 보면 됨
+
+### 클래스에서 가시성 제어자를 사용해서 접근할 수 있는 범위
+```kotlin
+fun main(){
+    val parent: Parent = Parent()
+    // println("Parent.a = ${parent.a})
+    // println("Parent.b = ${parent.b}")
+  println("Parent.c = ${parent.c}")
+  println("Parent.d = ${parent.d}")
+  
+  val child: Child = Child()
+}
+open class Parent {
+    private val a = 1
+  protected val b = 2
+  internal  val c = 3
+  val d = 4
+}
+class Child : Parent(){
+    init {
+        // println("Child.Parent.a = ${super.a}")
+        println("Child.Parent.b = ${super.b}")
+        println("Child.Parent.c = ${super.c}")
+        println("Child.Parent.d = ${super.d}")
+    }
+}
+```
