@@ -559,3 +559,124 @@ class Child : Parent(){
     }
 }
 ```
+
+# 5. Classes(클래스) - abstract class, interface
+
+## 1. abstract class
+* 자체적으로 인스턴스화 할 수 없고, 다른 클래스에 상속되어 구현되는 클래스
+* abstract 키워드가 붙어있는 프로퍼티, 메소드는 서브클래스에서 구현되어야함
+* 관련 클래스 그룹에 대한 공통 구조 정의
+
+<br>
+
+### 기본 형식
+```kotlin
+abstract class 클래스명 {
+    // 추상 프로퍼티 (초기화 불가)
+    abstract val 추상프로퍼티: 타입
+    
+    // 추상 메소드(자체구현 불가)
+    abstract fun 추상메소드 (파라미터: 타입) : 리턴 타입
+  
+    // 실제 값을 가지고 있는 프로퍼티
+  val 프로퍼티 : 타입 = 초기값
+  //실제 구현되어있는 메소드
+   fun 메소드(파라미터: 타입): 리턴타입 {
+       //본문
+       return 리턴값
+   }
+}
+```
+<br>
+
+### 추상 클래스 상속
+
+```kotlin
+fun main() {
+  val person: Person = Person("kim", 30)
+  person.printInfo()  // name = kim, age = 30
+}
+class Person(
+  val name: String,
+  val age: Int
+) : Info() {
+  override fun printInfo() {
+    println("name = $name, age = $age")
+  }
+}
+abstract class Info {
+    abstract fun printInfo()
+}
+```
+*  추상 클래스는 자체 구현이 없음. 상속받으면 추상 클래스에 있는 추상 메소드 구현 필요
+* 추상 클래스는 상속받으면 구현되어야하기 떄문에 open 키워드 필요 없음
+
+<br>
+
+## interface
+* 여러 클래스 간에 공통 동작을 정의하여 코드 재사용성을 높이는 데 사용
+* 인터페이스의 메서드는 추상(구현 없음)이거나 기본 구현을 가질 수 있음
+* 하나의 클래스에서 여러 개의 인터페이스를 구현할 수 있음
+* 인터페이스를 구현하는 클래스는 호출 코드에 영향을 주지 않고 쉽게 교체 가능
+
+<br>
+
+### 기본 형식
+```kotlin
+interface 인터페이스명 {
+    // 추상 프로퍼티 (초기화 불가)
+    val 프로퍼티 : 타입
+    // 추상 메소드 (자체구현 가능)
+    fun 메소드(파라미터: 타입) : 리턴타입
+    
+    // 기본 구현 메소드
+    fun 메소드(파라미터: 타입): 리턴타입{
+        // 본문
+        return 리턴값
+    }
+}
+```
+
+<br>
+
+### 인터페이스 구현
+
+```kotlin
+fun main() {
+  val person: Person = Person("kim", 30)
+  person.printInfo()  // name =kim , age = 30
+}
+class Person(
+  private val name: String,
+  private val age: Int,
+) : Info {
+  override fun printInfo() {
+    println("name = $name , age = $age")
+  }
+}
+interface Info {
+    fun printInfo()
+}
+```
+<br>
+
+### 인터페이스 프로퍼티 구현
+```kotlin
+fun main(){
+    val person: Person = Person()
+    person.printInfo() // name = kim , age = 30
+}
+class Person: Info {
+    override val name: String = "kim"
+    override  fun  printInfo() {
+        println("name = $name age = $age")
+    }
+}
+interface Info {
+    val name: String
+    val age: Int    
+      get() = 30
+  fun printInfo()
+}
+```
+* 인터페이스에서 선언된 프로퍼티는 추상이거나 접근자에 대한 구현을 제공할 수 있음
